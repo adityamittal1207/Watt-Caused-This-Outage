@@ -42,7 +42,7 @@ The columns we will be primarily analysing revolve around answering this questio
 
 # Data Cleaning and Exploratory Data Analysis
 
-## Data Cleaning
+### Data Cleaning
 
 The data cleaning steps I took were centered around the goal of making the data in the dataset as usable as possible when basing models off it in the future. Note that I opted out of dropping columns that I didn't list before as there are still some analyses I might conduct with them to answer different smaller questions. The steps I took are listed below:
 
@@ -78,7 +78,7 @@ The head of the new cleaned dataframe is below:
 
 </div>
 
-## Univariate Analyses
+### Univariate Analyses
 
 I conducted two univariate analyses using plots, shown below:
 
@@ -100,7 +100,7 @@ The plot above is a pie chart displaying the percentages of each outage category
 
 The plot above is a histogram displaying the distribution of outage duration in the dataset. This shows that the dataset heavily skews right, meaning that the majority of outage durations lie on the lower end, which might be influenced by other columns like predominant outage causes.
 
-## Bivariate Analyses
+### Bivariate Analyses
 
 I conducted two bivariate analyses using plots, shown below:
 
@@ -122,7 +122,7 @@ The plot above is a normalized histogram displaying the percentage of duration b
 
 The plot above is a scatterplot displaying relationship between the percentage of commercial electricity consumption of total electricity consumption in the state and the average monthly electricity price in the state (in cents/kilowatt-hour). This shows a positive relation between the commercial consumption percentage and electricity price, which at first glance makes sense as if more electricity is needed commercially, it can be charged for more to generate more money.
 
-## Interesting Aggregates
+### Interesting Aggregates
 
 On top of these visualizations, I made a few tables showing interesting aggregations of the dataset. I'll display one below:
 
@@ -143,7 +143,7 @@ There are multiple columns with missing data in this dataset that may be Missing
 
 However, as we don't have any of this additional information, we will instead try analyzing if outage restoration time is MAR. The results are below:
 
-## Dependent on: Outage restoration time's missingness depends on anomaly level
+### Dependent on: Outage restoration time's missingness depends on anomaly level
 
 I conducted a permutation test to assess the missingness of outage restoration time related to anomaly level (the oceanic El Niño/La Niña (ONI) index).
 
@@ -153,7 +153,7 @@ Alternate Hypothesis: The missingness of outage restoration time is not the same
 
 We get a p-value of 0.0. This means that at a significance level of 0.05, we can reject the null hypothesis. Therefore, it is extremely likely that the missingness of outage restoration time is not the same for different anomaly levels, meaning that outage restoration time is MAR, influenced by anomaly level.
 
-## Not dependent on: Outage restoration time's missingness does not depend on state population
+### Not dependent on: Outage restoration time's missingness does not depend on state population
 
 I conducted a permutation test to assess the missingness of outage restoration time related to state population.
 
@@ -218,13 +218,13 @@ This model had a test f1 (weighted) of 0.5526, which I would say means that the 
 
 I made quite a few changes between the baseline model and the final model, centered around giving the model extra useful information and tuning the model itself.
 
-## Added Features
+### Added Features
 
 I began by adding the following categorial columns encoding them with sklearn's `OneHotEncoder`: `['NERC.REGION', 'CLIMATE.REGION', 'CLIMATE.CATEGORY']`. I chose to add these as `NERC.REGION` provides us information on overall power grid reliability in the area which can influence what causes outages there; `CLIMATE.REGION` gives insights on standardized climates that could influence the types of natural events that lead to outages; `CLIMATE.CATEGORY` provides climate divisions that we already observed seem to have a correlation to outage cause. 
 
 Additionally, I created custom ratio-based columns: `URBAN_RURAL_RATIO` (`POPDEN_URBAN`/`POPDEN_RURAL`) and `CUST_PER_CAPITA` (`TOTAL.CUSTOMERS`/`POPULATION`). These will be useful as they give more standardized insights that relate less to just the state the outage took place in, allowing the model to have more holistic features to work with. 
 
-## Model and Performance
+### Model and Performance
 
 The final model I ended up using was a `RandomForestClassifier` with the following hyperparameters: `mean` imputation, a max depth of `20`, `sqrt` max features per tree, `5` min sample split, and `300` estimators. This got us a final f1 score, on the same test data as the baseline, of **0.6473**. We ended up choosing this model and hyperparameters through a `GridSearchCV` with 5 folds. We ran this with the following combinations:
 
