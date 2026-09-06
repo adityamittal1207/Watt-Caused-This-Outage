@@ -147,9 +147,9 @@ However, as we don't have any of this additional information, we will instead tr
 
 I conducted a permutation test to assess the missingness of outage restoration time related to anomaly level (the oceanic El Niño/La Niña (ONI) index).
 
-Null Hypothesis: The missingness of outage restoration time is the same for different anomaly levels.
+**Null Hypothesis**: The missingness of outage restoration time is the same for different anomaly levels.
 
-Alternate Hypothesis: The missingness of outage restoration time is not the same for different anomaly levels.
+**Alternate Hypothesis**: The missingness of outage restoration time is not the same for different anomaly levels.
 
 We get a p-value of 0.0. This means that at a significance level of 0.05, we can reject the null hypothesis. Therefore, it is extremely likely that the missingness of outage restoration time is not the same for different anomaly levels, meaning that outage restoration time is MAR, influenced by anomaly level.
 
@@ -262,8 +262,9 @@ My thoughts are that rural areas would mostly comprise of natural outage causes,
 
 I chose an evaluation metric of weighted precision. This is because if we want this model to influencereal-world decisions, we need to minimize false positives as it false positives would influence decision-makers to waste resources to stopping the wrong causes. Additionally, we weighted this precision due to the imbalance of the outage causes in this dataset. To evaluate this fairness, I conducted a permutation test. I chose to use a test statistic of absolute difference of means as we wanted a two-sided test to simply test if the distributions were different. We will be operating with a significance level of 0.05, as that is standard. I used the following hypothesis:
 
-Null Hypothesis: Our model is fair. Its weighted precision for urban and rural areas are roughly the same, and any differences are due to random chance.
-Alternate Hypothesis: Our model is unfair. Its weighted precision for urban areas is different than its weighted precision for rural areas.
+**Null Hypothesis**: Our model is fair. Its weighted precision for urban and rural areas are roughly the same, and any differences are due to random chance.
+
+**Alternate Hypothesis**: Our model is unfair. Its weighted precision for urban areas is different than its weighted precision for rural areas.
 
 Our resulting p-value is 0.0, which is below the significance level of 0.05. This means that we reject the null hypothesis, so it is very likely that our model is unfair, and it's weighted precision for urban areas is different than its weighted precision for rural areas. The visualization below gives more insight on how our observed absolute difference in means compares to the null distribution of the absolute difference of the weighted precisions between the predictions in urban vs. rural areas.
 
